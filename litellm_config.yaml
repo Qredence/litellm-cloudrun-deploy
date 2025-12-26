@@ -3,14 +3,14 @@ model_list:
     litellm_params:
       model: vertex_ai/gemini-3-flash-preview
       api_base: https://aiplatform.googleapis.com
-      api_key: AQ.Ab8RN6Ivw43JB5yPxf4MWYjtapEL5fIRpgS4C05i_J97v1DYiA
+      api_key: os.environ/GEMINI_API_KEY
       rpm: 6
   - model_name: kimi-k2-thinking-maas
     litellm_params:
       model: openai/moonshotai/kimi-k2-thinking-maas
-      api_base: https://us-central1-aiplatform.googleapis.com/v1/projects/qlaus-398610/locations/us-central1/endpoints/openapi
+      api_base: https://us-central1-aiplatform.googleapis.com/v1/projects/PROJECT_ID/locations/us-central1/endpoints/openapi
       api_key: os.environ/KIMI_ACCESS_TOKEN
 router_settings:
-  redis_host: redis-19721.c327.europe-west1-2.gce.cloud.redislabs.com
-  redis_port: 1992
-  redis_password: QYJZ6wdolvzUyPZeyMgeu6dj6w352rQj
+  redis_host: os.environ/REDIS_HOST
+  redis_port: os.environ/REDIS_PORT
+  redis_password: os.environ/REDIS_PASSWORD
