@@ -23,7 +23,7 @@ Choose the deployment path that matches your needs:
 
 ### Option 1: One-Click Deploy (Recommended for Testing & Evaluation)
 
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run?git_repo=https://github.com/qredence/litellm-cloudrunner)
 
 **Best for:** Getting started quickly, testing, proof-of-concept
 
@@ -72,7 +72,7 @@ docker run --name litellm-proxy \
 
 ### 2. One-Click Deploy to Cloud Run
 
-[![](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+[![](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run?git_repo=https://github.com/qredence/litellm-cloudrunner)
 
 _(Note: Ensure your Google Cloud project is active and billing is enabled)_
 
@@ -102,6 +102,7 @@ The script will build the container using Cloud Build and deploy it to Cloud Run
 
 - [**Production with Secret Manager**](docs/PRODUCTION-SECRETS.md) - Secure production deployment guide
 - [**Production Best Practices**](docs/PRODUCTION.md) - Machine and worker optimization
+- [**Cost Optimization**](docs/COST.md) - Google Cloud Run pricing and savings
 - [**Caching Implementation**](docs/CACHING.md) - Redis caching configuration and verification
 - [**Quick Start Guide**](docs/QUICK-START.md) - Step-by-step deployment walkthrough
 - [**Deployment Logic**](deploy_gcloud.sh) - Deep dive into the automated deployment script

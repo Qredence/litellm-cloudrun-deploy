@@ -2,14 +2,14 @@ model_list:
   - model_name: gemini-3-flash-preview
     litellm_params:
       model: vertex_ai/gemini-3-flash-preview
-      vertex_project: "qlaus-398610"
-      vertex_location: "us-central1"
+      vertex_project: os.environ/GOOGLE_CLOUD_PROJECT
+      vertex_location: os.environ/VERTEX_LOCATION
       rpm: 6
   - model_name: kimi-k2-thinking-maas
     litellm_params:
       model: vertex_ai/moonshotai/kimi-k2-thinking-maas
-      vertex_project: "qlaus-398610"
-      vertex_location: "us-central1"
+      vertex_project: os.environ/GOOGLE_CLOUD_PROJECT
+      vertex_location: os.environ/VERTEX_LOCATION
       # Authentication handled via Cloud Run default credentials (ADC)
 
 router_settings:

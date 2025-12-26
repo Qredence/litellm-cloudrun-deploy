@@ -32,7 +32,7 @@ This guide helps you deploy LiteLLM Proxy to Google Cloud Run in minutes.
 
 Click the button below to open the deployment wizard:
 
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run?git_repo=https://github.com/qredence/litellm-cloudrunner)
 
 ## Step 2: Configure Deployment
 

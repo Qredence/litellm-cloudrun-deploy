@@ -2,8 +2,8 @@
 set -e
 
 # Configuration
-PROJECT_ID="qlaus-398610"
-REGION="us-central1"
+PROJECT_ID=$(gcloud config get-value project)
+REGION="${REGION:-us-central1}"
 SERVICE_NAME="litellm-proxy"
 IMAGE_NAME="gcr.io/$PROJECT_ID/$SERVICE_NAME"
 
@@ -21,6 +21,13 @@ gcloud run deploy $SERVICE_NAME \
   --memory 4Gi \
   --cpu 2 \
   --port 4000 \
+  --update-startup-probe-path="/health/readiness" \
+  --update-startup-probe-period=5s \
+  --update-startup-probe-failure-threshold=10 \
+  --update-liveness-probe-path="/health/liveness" \
+  --update-liveness-probe-period=30s \
+  --set-env-vars "GOOGLE_CLOUD_PROJECT=$PROJECT_ID" \
+  --set-env-vars "VERTEX_LOCATION=$REGION" \
   --set-env-vars "DATABASE_URL=$DATABASE_URL" \
   --set-env-vars "LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY" \
   --set-env-vars "UI_USERNAME=$UI_USERNAME" \
