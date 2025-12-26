@@ -17,6 +17,38 @@ A high-performance, cost-optimized LiteLLM Proxy deployment for **Google Cloud R
   - IAM-based invocation control.
 - **Multi-Model Support**: Gemini 1.5 Pro/Flash, Moonshot Kimi, and more.
 
+## 🚀 Deployment Options
+
+Choose the deployment path that matches your needs:
+
+### Option 1: One-Click Deploy (Recommended for Testing & Evaluation)
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+
+**Best for:** Getting started quickly, testing, proof-of-concept
+- ✅ One-click deployment
+- ✅ No pre-configuration required
+- ✅ Guides you through setup wizard
+- ⚠️ Secrets stored as environment variables (see Option 2 for production)
+
+### Option 2: Production Deployment (Recommended for Production)
+**Guide:** [Production with Secret Manager](docs/PRODUCTION-SECRETS.md)
+
+**Best for:** Production environments, enterprise deployments
+- ✅ Secrets stored in Google Secret Manager
+- ✅ IAM-based access control
+- ✅ Full audit trails
+- ✅ Recommended for sensitive workloads
+
+### Option 3: Manual CLI Deployment
+**Guide:** [deploy_gcloud.sh](deploy_gcloud.sh)
+
+**Best for:** Developers who prefer command-line control
+- ✅ Full control over deployment
+- ✅ Integrates with CI/CD pipelines
+- ✅ Custom deployment scripts
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. Local Run (Docker)
@@ -52,9 +84,11 @@ export $(grep -v '^#' .env | xargs)
 
 ## 📖 Documentation
 
-- [**Production Best Practices**](docs/PRODUCTION.md) - Learn about our worker and machine optimizations.
-- [**Caching Implementation**](docs/CACHING.md) - How to configure and verify Redis caching.
-- [**Deployment Logic**](deploy_gcloud.sh) - Deep dive into the automated deployment script.
+- [**Production with Secret Manager**](docs/PRODUCTION-SECRETS.md) - Secure production deployment guide
+- [**Production Best Practices**](docs/PRODUCTION.md) - Machine and worker optimization
+- [**Caching Implementation**](docs/CACHING.md) - Redis caching configuration and verification
+- [**Quick Start Guide**](docs/QUICK-START.md) - Step-by-step deployment walkthrough
+- [**Deployment Logic**](deploy_gcloud.sh) - Deep dive into the automated deployment script
 
 ## 🛠 Configuration
 

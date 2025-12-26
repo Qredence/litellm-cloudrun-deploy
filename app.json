@@ -1,0 +1,89 @@
+{
+  "name": "litellm-proxy",
+  "env": {
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection string (e.g., postgresql://user:pass@host:5432/dbname)",
+      "required": true
+    },
+    "LITELLM_MASTER_KEY": {
+      "description": "Master key for LiteLLM proxy authentication (use sk- prefix)",
+      "required": true,
+      "generator": "secret"
+    },
+    "LITELLM_SALT_KEY": {
+      "description": "Encryption key for database values (use sk- prefix)",
+      "required": true,
+      "generator": "secret"
+    },
+    "UI_USERNAME": {
+      "description": "Username for LiteLLM UI",
+      "value": "admin",
+      "required": false
+    },
+    "UI_PASSWORD": {
+      "description": "Password for LiteLLM UI",
+      "required": true,
+      "generator": "secret"
+    },
+    "STORE_MODEL_IN_DB": {
+      "description": "Store model configurations in database",
+      "value": "True",
+      "required": false
+    },
+    "LITELLM_LOG": {
+      "description": "Logging level (DEBUG, INFO, WARNING, ERROR)",
+      "value": "INFO",
+      "required": false
+    },
+    "REDIS_HOST": {
+      "description": "Redis host address (or leave empty to disable caching)",
+      "required": true
+    },
+    "REDIS_PORT": {
+      "description": "Redis port",
+      "value": "6379",
+      "required": false
+    },
+    "REDIS_PASSWORD": {
+      "description": "Redis password",
+      "required": true,
+      "generator": "secret"
+    },
+    "LANGFUSE_SECRET_KEY": {
+      "description": "Langfuse secret key for observability (optional)",
+      "value": "",
+      "required": false
+    },
+    "LANGFUSE_PUBLIC_KEY": {
+      "description": "Langfuse public key for observability (optional)",
+      "value": "",
+      "required": false
+    },
+    "LANGFUSE_BASE_URL": {
+      "description": "Langfuse base URL (optional)",
+      "value": "https://cloud.langfuse.com",
+      "required": false
+    },
+    "CONTEXT7_API_KEY": {
+      "description": "Context7 API key for documentation (optional)",
+      "value": "",
+      "required": false
+    },
+    "TAVILY_API_KEY": {
+      "description": "Tavily API key for search grounding (optional)",
+      "value": "",
+      "required": false
+    }
+  },
+  "options": {
+    "allow-unauthenticated": true,
+    "memory": "4Gi",
+    "cpu": "2",
+    "port": 4000,
+    "concurrency": 80,
+    "max-instances": 100
+  },
+  "build": {
+    "skip": false
+  }
+}

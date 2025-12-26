@@ -2,6 +2,18 @@
 
 To ensure stability and performance, this repository follows LiteLLM and Cloud Run best practices.
 
+## Security: Secret Manager
+
+For secure secret management in production, see **[Production with Secret Manager](PRODUCTION-SECRETS.md)**. This guide explains how to:
+- Store secrets in Google Secret Manager
+- Grant IAM-based access
+- Migrate from environment variables
+- Implement secret rotation
+
+For quick deployments and testing, use the **[Quick Start Guide](../README.md)** with environment variables.
+
+---
+
 ## 1. Machine Level Recommendation
 
 We use **2 vCPU** and **4GB RAM**. This allows the container to handle high throughput and background tasks like database connection pooling without bottlenecking.
