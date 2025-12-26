@@ -22,27 +22,33 @@ A high-performance, cost-optimized LiteLLM Proxy deployment for **Google Cloud R
 Choose the deployment path that matches your needs:
 
 ### Option 1: One-Click Deploy (Recommended for Testing & Evaluation)
+
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
 **Best for:** Getting started quickly, testing, proof-of-concept
+
 - ✅ One-click deployment
 - ✅ No pre-configuration required
 - ✅ Guides you through setup wizard
 - ⚠️ Secrets stored as environment variables (see Option 2 for production)
 
 ### Option 2: Production Deployment (Recommended for Production)
+
 **Guide:** [Production with Secret Manager](docs/PRODUCTION-SECRETS.md)
 
 **Best for:** Production environments, enterprise deployments
+
 - ✅ Secrets stored in Google Secret Manager
 - ✅ IAM-based access control
 - ✅ Full audit trails
 - ✅ Recommended for sensitive workloads
 
 ### Option 3: Manual CLI Deployment
+
 **Guide:** [deploy_gcloud.sh](deploy_gcloud.sh)
 
 **Best for:** Developers who prefer command-line control
+
 - ✅ Full control over deployment
 - ✅ Integrates with CI/CD pipelines
 - ✅ Custom deployment scripts
@@ -72,15 +78,25 @@ _(Note: Ensure your Google Cloud project is active and billing is enabled)_
 
 ### 3. CLI Deployment
 
-We use a streamlined deployment script for production updates.
+We use a streamlined deployment script (`deploy_gcloud.sh`) for production updates.
+
+**Prerequisites:**
+
+- Google Cloud SDK installed (`gcloud`).
+- Authenticated session (`gcloud auth login`).
+- Active project set (`gcloud config set project YOUR_PROJECT_ID`).
+
+**To Deploy:**
 
 ```bash
-# Load your secrets
+# 1. Load your local secrets
 export $(grep -v '^#' .env | xargs)
 
-# Deploy to Cloud Run
+# 2. Deploy to Cloud Run
 ./deploy_gcloud.sh
 ```
+
+The script will build the container using Cloud Build and deploy it to Cloud Run with the environment variables from your current session.
 
 ## 📖 Documentation
 
