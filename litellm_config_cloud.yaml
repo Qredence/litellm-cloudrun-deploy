@@ -1,0 +1,29 @@
+model_list:
+  - model_name: gemini-3-flash-preview
+    litellm_params:
+      model: vertex_ai/gemini-3-flash-preview
+      vertex_project: "qlaus-398610"
+      vertex_location: "us-central1"
+      rpm: 6
+  - model_name: kimi-k2-thinking-maas
+    litellm_params:
+      model: vertex_ai/moonshotai/kimi-k2-thinking-maas
+      vertex_project: "qlaus-398610"
+      vertex_location: "us-central1"
+      # Authentication handled via Cloud Run default credentials (ADC)
+
+router_settings:
+  # redis config moved to cache_params
+
+general_settings:
+  database_connection_pool_limit: 20
+
+litellm_settings:
+  set_verbose: False
+  json_logs: True
+  cache: True
+  cache_params:
+    type: redis
+    host: os.environ/REDIS_HOST
+    port: os.environ/REDIS_PORT
+    password: os.environ/REDIS_PASSWORD
