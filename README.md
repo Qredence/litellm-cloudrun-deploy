@@ -1,84 +1,80 @@
-# LiteLLM Proxy on Google Cloud Run
+# litellm-cloudrun-deploy 🚀
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/Build-Cloud%20Run-blue?logo=google-cloud)](https://cloud.google.com)
+[![Documentation](https://img.shields.io/badge/Docs-Internal-green)](docs/)
 
-A production-ready LiteLLM Proxy setup designed for **Google Cloud Run**, featuring Redis caching, Vertex AI integration (Gemini/Moonshot), and secure secret management.
+A high-performance, cost-optimized LiteLLM Proxy deployment for **Google Cloud Run**. This setup is designed for enterprise-grade applications requiring model routing, caching, and observability.
 
-## Features
+## 🌟 Key Features
 
-- **Serverless**: Optimized for Google Cloud Run (2 vCPU, 4GB RAM).
-- **Caching**: integrated Redis support for low latency and cost reduction.
-- **Security**: Secrets managed via environment variables (no hardcoded credentials).
-- **Models**: Pre-configured for Gemini 1.5 Pro/Flash and Kimi (Moonshot AI).
-- **Monitoring**: Integration with Langfuse and Context7.
+- **Scalable Serverless**: Deploys to Google Cloud Run with optimized 2 vCPU / 4GB RAM specs.
+- **Enterprise Caching**: Built-in **Redis** integration for sub-second latent responses and heavy cost savings.
+- **Full Observability**: Pre-configured for **Langfuse**, **Context7**, and **Tavily**.
+- **Secure by Default**:
+  - Zero hardcoded secrets (Env-var injection).
+  - Encrypted database storage with custom salt keys.
+  - IAM-based invocation control.
+- **Multi-Model Support**: Gemini 1.5 Pro/Flash, Moonshot Kimi, and more.
 
-## Quick Start
+## 🚀 Quick Start
 
-### Local Development
+### 1. Local Run (Docker)
 
-To run the proxy locally using Docker:
+Ensure you have Docker installed and a `.env` file based on `.env.example`.
 
-1. **Configure Environment**:
-   Copy `.env.example` to `.env` and fill in your keys.
+```bash
+docker run --name litellm-proxy \
+  --env-file .env \
+  -p 4000:4000 \
+  -v $(pwd)/litellm_config.yaml:/app/config.yaml \
+  docker.litellm.ai/berriai/litellm-database:main-stable \
+  --config /app/config.yaml --port 4000 --num_workers 8
+```
 
-   ```bash
-   cp .env.example .env
-   ```
+### 2. One-Click Deploy to Cloud Run
 
-2. **Run Docker Container**:
+[![](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
-   ```bash
-   docker run --name litellm-proxy \
-     --env-file .env \
-     -p 4000:4000 \
-     -v $(pwd)/litellm_config.yaml:/app/config.yaml \
-     docker.litellm.ai/berriai/litellm-database:main-stable \
-     --config /app/config.yaml --port 4000 --num_workers 8
-   ```
+_(Note: Ensure your Google Cloud project is active and billing is enabled)_
 
-3. **Test**:
-   ```bash
-   curl http://localhost:4000/v1/models
-   ```
+### 3. CLI Deployment
 
-### Deploy to Cloud Run
+We use a streamlined deployment script for production updates.
 
-**Prerequisites**:
+```bash
+# Load your secrets
+export $(grep -v '^#' .env | xargs)
 
-- Google Cloud SDK (`gcloud`) installed and authenticated.
-- A Google Cloud Project with Cloud Run enabled.
+# Deploy to Cloud Run
+./deploy_gcloud.sh
+```
 
-**Deployment**:
-We provide a helper script `deploy_gcloud.sh` that securely injects environment variables and deploys the service.
+## 📖 Documentation
 
-1. **Set Secrets**: Ensure your `.env` file is populated with production values.
-2. **Deploy**:
+- [**Production Best Practices**](docs/PRODUCTION.md) - Learn about our worker and machine optimizations.
+- [**Caching Implementation**](docs/CACHING.md) - How to configure and verify Redis caching.
+- [**Deployment Logic**](deploy_gcloud.sh) - Deep dive into the automated deployment script.
 
-   ```bash
-   # Load env vars
-   export $(grep -v '^#' .env | xargs)
+## 🛠 Configuration
 
-   # Run deploy script
-   ./deploy_gcloud.sh
-   ```
+The core configuration is split into two files:
 
-## Configuration
+- `litellm_config.yaml`: Used for local testing with dummy or temporary keys.
+- `litellm_config_cloud.yaml`: Optimized for Cloud Run, reading secrets from `os.environ`.
 
-The proxy uses `litellm_config_cloud.yaml` for production. Key settings:
+## 🔒 Permissions
 
-- **Strict Environment Variables**: Sensitive values (Redis host/pass) are read from `os.environ`.
-- **Connection Pooling**: Optimized for serverless environments.
-- **Logging**: Set to `ERROR` level to reduce noise and costs.
-
-## Permissions
-
-To invoke the service, you need the `roles/run.invoker` permission.
+Grant access to the service using the Google Cloud SDK:
 
 ```bash
 gcloud run services add-iam-policy-binding litellm-proxy \
-    --member="user:YOUR_EMAIL@example.com" \
+    --member="user:NAME@DOMAIN.COM" \
     --role="roles/run.invoker" \
     --region="us-central1" \
     --project="YOUR_PROJECT_ID"
 ```
+
+---
+
+Built with ❤️ by [Qredence](https://qredence.ai).
